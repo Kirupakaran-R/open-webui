@@ -87,19 +87,18 @@
 						</div>
 
 						<div class="flex flex-col gap-1.5">
-							{#each servers as server, idx}
-								<Connection
-									bind:connection={server}
-									direct
-									onSubmit={() => {
-										updateHandler();
-									}}
-									onDelete={() => {
-										servers = servers.filter((_, i) => i !== idx);
-										updateHandler();
-									}}
-								/>
-							{/each}
+						{#each servers as server, idx}
+							<Connection
+								bind:connection={server}
+								onSubmit={() => {
+									updateHandler();
+								}}
+								onDelete={() => {
+									servers = servers.filter((_, i) => i !== idx);
+									updateHandler();
+								}}
+							/>
+						{/each}
 						</div>
 					</div>
 

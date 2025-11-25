@@ -840,6 +840,11 @@ def get_tool_server_url(url: Optional[str], path: str) -> str:
     if "://" in path:
         # If it contains "://", it's a full URL
         return path
+    
+    # If URL doesn't have a protocol, add http://
+    if url and "://" not in url:
+        url = f"http://{url}"
+
     if not path.startswith("/"):
         # Ensure the path starts with a slash
         path = f"/{path}"

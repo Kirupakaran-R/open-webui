@@ -790,6 +790,11 @@ def convert_to_azure_payload(url, payload: dict, api_version: str):
     payload = {k: v for k, v in payload.items() if k in allowed_params}
 
     url = f"{url}/openai/deployments/{model}"
+    if url.endswith("/openai"):
+        url = f"{url}/deployments/{model}"
+    else:
+        url = f"{url}/openai/deployments/{model}"
+        
     return url, payload
 
 
