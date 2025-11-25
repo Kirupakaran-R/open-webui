@@ -3,6 +3,7 @@ import hashlib
 import json
 import logging
 from typing import Optional
+from urllib.parse import quote
 
 import aiohttp
 from aiocache import cached
@@ -789,15 +790,18 @@ def convert_to_azure_payload(url, payload: dict, api_version: str):
     # Filter out unsupported parameters
     payload = {k: v for k, v in payload.items() if k in allowed_params}
 
-    url = f"{url}/openai/deployments/{model}"
+    # URL encode the model/deployment name to handle special characters
+    encoded_model = quote(model, safe='')
+    
+    # Construct the Azure OpenAI deployment URL
     if url.endswith("/openai"):
-        url = f"{url}/deployments/{model}"
+        url = f"{url}/deployments/{encoded_model}"
     else:
-        url = f"{url}/openai/deployments/{model}"
+        url = f"{url}/openai/deployments/{encoded_model}"
+    
+    log.debug(f"Azure deployment URL: {url}")
         
     return url, payload
-
-
 @router.post("/chat/completions")
 async def generate_chat_completion(
     request: Request,

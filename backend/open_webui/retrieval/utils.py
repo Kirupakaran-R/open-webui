@@ -626,7 +626,9 @@ def generate_azure_openai_batch_embeddings(
         if isinstance(RAG_EMBEDDING_PREFIX_FIELD_NAME, str) and isinstance(prefix, str):
             json_data[RAG_EMBEDDING_PREFIX_FIELD_NAME] = prefix
 
-        url = f"{url}/openai/deployments/{model}/embeddings?api-version={version}"
+        # URL encode the model/deployment name to handle special characters
+        encoded_model = quote(model, safe='')
+        url = f"{url}/openai/deployments/{encoded_model}/embeddings?api-version={version}"
 
         for _ in range(5):
             headers = {
@@ -674,7 +676,9 @@ async def agenerate_azure_openai_batch_embeddings(
         if isinstance(RAG_EMBEDDING_PREFIX_FIELD_NAME, str) and isinstance(prefix, str):
             form_data[RAG_EMBEDDING_PREFIX_FIELD_NAME] = prefix
 
-        full_url = f"{url}/openai/deployments/{model}/embeddings?api-version={version}"
+        # URL encode the model/deployment name to handle special characters
+        encoded_model = quote(model, safe='')
+        full_url = f"{url}/openai/deployments/{encoded_model}/embeddings?api-version={version}"
 
         headers = {
             "Content-Type": "application/json",

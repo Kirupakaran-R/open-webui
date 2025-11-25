@@ -49,7 +49,7 @@ IF "%WEBUI_SECRET_KEY% %WEBUI_JWT_SECRET_KEY%" == " " (
 :: ============================================================================
 :: IMPORTANT: The URL should be just the base domain
 :: Open WebUI will append /openai/deployments/{model}/chat/completions automatically for Azure
-IF "%OPENAI_API_BASE_URLS%"=="" SET OPENAI_API_BASE_URLS=https://aoai-farm.bosch-temp.com/api
+IF "%OPENAI_API_BASE_URLS%"=="" SET OPENAI_API_BASE_URLS=https://aoai-farm.bosch-temp.com/api/openai
 
 :: Set the API key (your genaiplatform-farm-subscription-key)
 IF "%OPENAI_API_KEYS%"=="" SET OPENAI_API_KEYS=password
